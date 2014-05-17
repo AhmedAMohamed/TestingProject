@@ -1,8 +1,7 @@
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.ObjectInputStream.GetField;
+import com.itextpdf.text.DocumentException;
 
 
 public class Main {
@@ -18,16 +17,12 @@ public class Main {
 	public static void setYakAFile(File yakAFil) {
 		yakAFile = yakAFil;
 	}
-	public static File getDotFile() {
-		return dotFile;
-	}
-	public static void setDotFile(File dotFile) {
-		Main.dotFile = dotFile;
-	}
 	
 	
-	public static void main(String []args) throws IOException{
+	@SuppressWarnings("unused")
+	public static void main(String []args) throws IOException, DocumentException{
 		
+		imageName = "theGraph.png";
 		Runtime rt = Runtime.getRuntime();
 		Process excute;
 		int switcher = -1;
@@ -65,19 +60,20 @@ public class Main {
 				pathFinder.generateSimplePaths();
 				pathFinder.generatePrimePaths();
 				pathFinder.generateTestPath();
+				PdfJenerator report = new PdfJenerator(pathFinder , getImageName());
 				
 			}
 			else{
 				System.out.println("\t**********wrong input file extention**********");	
 			}
 			break;
-		case 2: // show graph
+		case 2:
 			if(args[1].contains("yak")){
 				YacConvertor convertor = new YacConvertor(args[1]);
 				setYakAFile(convertor.getYacFile());
 				FileGenerator dotFileGenerator = new FileGenerator(getYakAFile());
 				setDotFile(dotFileGenerator.getOutputFile());
-				excute = rt.exec("dot -Tpng " + dotFileGenerator.getOutputFileName() + " -o theGraph.png");
+			excute = rt.exec("dot -Tpng " + dotFileGenerator.getOutputFileName() + " -o " + imageName);
 				excute = rt.exec("shotwell theGraph.png");
 			}
 			else{
@@ -86,5 +82,15 @@ public class Main {
 			}
 			break;
 		}
+			
+	}
+	public static File getDotFile() {
+		return dotFile;
+	}
+	public static void setDotFile(File dotFile) {
+		Main.dotFile = dotFile;
+	}
+	public static String getImageName(){
+		return imageName;
 	}
 }
