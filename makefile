@@ -1,8 +1,9 @@
 
 
 HelpMe : 
-	javac FileGenerator.java Graph.java Main.java ProcessGraph.java YacConvertor.java YAK2Graph.java
-	java Main --help	
+
+	javac -cp a.jar:b.jar:c.jar:d.jar:e.jar:f.jar:g.jar:l.jar:k.jar FileGenerator.java Graph.java Main.java ProcessGraph.java YacConvertor.java YAK2Graph.java Pdf
+	java -cp a.jar:b.jar:c.jar:d.jar:e.jar:f.jar:g.jar:l.jar:k.jar Main --help
 	@echo "****************** you have already got your help ********************"
 MakeHelper :
 	@echo "There are many options you can choose while using the YAK tool"
@@ -18,24 +19,30 @@ GenInput :
 	gedit &
 
 Clean  : 
-	rm -f FileGenerator.class Graph.class Main.class ProcessGraph.class YacConvertor.class YAK2Graph.class
+	rm -f FileGenerator.class Graph.class Main.class ProcessGraph.class YacConvertor.class YAK2Graph.class PdfJenerator.class
 	rm -f yacFile.yakA
 	rm -f graphInput.dot
 	rm -f theGraph.png
+	rm -f report.pdf
+
 	@echo "***************** All un-needed files has already removed *************************"
-All : FileGenerator.java Graph.java Main.java ProcessGraph.java YacConvertor.java YAK2Graph.java input.yak
+All : FileGenerator.java Graph.java Main.java ProcessGraph.java YacConvertor.java YAK2Graph.java input.yak a.jar b.jar c.jar d.jar e.jar f.jar g.jar l.jar k.jar
 	make Report
 	make GraphShower
 	clear
 
-Report : FileGenerator.java Graph.java Main.java ProcessGraph.java YacConvertor.java YAK2Graph.java input.yak
-	javac FileGenerator.java Graph.java Main.java ProcessGraph.java YacConvertor.java YAK2Graph.java
-	java Main --fullreport input.yak
+Report : FileGenerator.java Graph.java Main.java ProcessGraph.java YacConvertor.java YAK2Graph.java input.yak a.jar b.jar c.jar d.jar e.jar f.jar g.jar l.jar k.jar
+
+	 javac -cp a.jar:b.jar:c.jar:d.jar:e.jar:f.jar:g.jar:k.jar:l.jar Main.java FileGenerator.java Graph.java ProcessGraph.java PdfJenerator.java YacConvertor.java YAK2Graph.java 
+	java -cp .:a.jar:b.jar:c.jar:d.jar:e.jar:f.jar:l.jar:k.jar:g.jar Main --fullreport input.yak
+
 	@echo "****************** DONE **********************"
 
-GraphShower : FileGenerator.java Graph.java Main.java ProcessGraph.java YacConvertor.java YAK2Graph.java input.yak
-	javac FileGenerator.java Graph.java Main.java ProcessGraph.java YacConvertor.java YAK2Graph.java
-	java Main --showGraph input.yak
+GraphShower : FileGenerator.java Graph.java Main.java ProcessGraph.java YacConvertor.java YAK2Graph.java input.yak a.jar b.jar c.jar d.jar e.jar f.jar g.jar l.jar k.jar
+
+	
+	 javac -cp a.jar:b.jar:c.jar:d.jar:e.jar:f.jar:g.jar:k.jar:l.jar Main.java FileGenerator.java Graph.java ProcessGraph.java PdfJenerator.java YacConvertor.java YAK2Graph.java 
+	java -cp .:a.jar:b.jar:c.jar:d.jar:e.jar:f.jar:l.jar:k.jar:g.jar Main --showGraph input.yak
 	clear
 
 
