@@ -18,6 +18,12 @@ public class Main {
 	public static void setYakAFile(File yakAFil) {
 		yakAFile = yakAFil;
 	}
+	public static File getDotFile() {
+		return dotFile;
+	}
+	public static void setDotFile(File dotFile) {
+		Main.dotFile = dotFile;
+	}
 	
 	
 	public static void main(String []args) throws IOException{
@@ -65,7 +71,7 @@ public class Main {
 				System.out.println("\t**********wrong input file extention**********");	
 			}
 			break;
-		case 2:
+		case 2: // show graph
 			if(args[1].contains("yak")){
 				YacConvertor convertor = new YacConvertor(args[1]);
 				setYakAFile(convertor.getYacFile());
@@ -80,11 +86,5 @@ public class Main {
 			}
 			break;
 		}
-	}
-	public static File getDotFile() {
-		return dotFile;
-	}
-	public static void setDotFile(File dotFile) {
-		Main.dotFile = dotFile;
 	}
 }
