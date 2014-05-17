@@ -5,14 +5,22 @@ import java.io.PrintWriter;
 import java.util.Scanner;
 
 
-public class YacConvertor {
+public class YakConvertor {
 	private File yacAFile;
 	private File yacFile;
+	public File getYacFile() {
+		return yacFile;
+	}
+
+	public void setYacFile(File yacFile) {
+		this.yacFile = yacFile;
+	}
+
 	private File meddileWare;
 	
-	public YacConvertor(String inputFilePath){
+	public YakConvertor(String inputFilePath){
 		yacAFile = new File(inputFilePath);
-		yacFile = new File("yacFile.yacA");
+		yacFile = new File("yacFile.yakA");
 		deleteComments();
 	}
 	
@@ -28,7 +36,7 @@ public class YacConvertor {
 					continue;
 				}
 				else{
-					System.out.println(temporaryLine);
+					//System.out.println(temporaryLine);
 					writer.write(temporaryLine + '\n');
 				}
 			}
@@ -36,7 +44,7 @@ public class YacConvertor {
 			reader.close();
 			copyToYacFile();
 		} catch (FileNotFoundException e) {
-			System.out.println("the file input not found (try again later)");
+			System.out.println("the file hjhh input not found (try again later)");
 			System.exit(0);
 		} 
 	}
@@ -47,11 +55,11 @@ public class YacConvertor {
 		String Line = new String();
 		while(reader.hasNext()){
 			Line = reader.nextLine();
-			System.out.println(Line + "        jlkjljl");
 			writer.write(Line + '\n');
 		}
 		writer.close();
 		reader.close();
 		meddileWare.delete();
 	}
+	
 }
