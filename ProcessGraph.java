@@ -1,22 +1,17 @@
-// The Class suppose to be the class that generate the prime pathes
 import java.util.ArrayList;
 
 
-/*
- * @uthor Yousef Hamza
- * This Class is made to take  a data structure graph (ArrayList of ArrayList ) then generate the simplepath & primepath & testcases
- **/
 public class ProcessGraph {
-	private  ArrayList<ArrayList<ArrayList<Integer> > > simplepaths;
+	private ArrayList<ArrayList<ArrayList<Integer> > > simplepaths;
 	private ArrayList<ArrayList<Integer> > primepaths;
+	private ArrayList<ArrayList<Integer>> testpaths;
 	private ArrayList<ArrayList<Integer> > subpaths;
 	private ArrayList<Boolean> visited;
 	private ArrayList<ArrayList<Integer>> graph;
 	
 	/*
 	 * Intializing the class with the graph used
-	 * for all the functions of the class. 
-	 * the costructor takes the generated data structure
+	 * for all the functions of the class.
 	 * */
 	public ProcessGraph(ArrayList<ArrayList<Integer>> g) {
 		graph =g;
@@ -64,12 +59,12 @@ public class ProcessGraph {
 	
 	/*
 	 * Helper Function Used in Generate Prime paths
-	 * it's the famous DFS with modification of the 
+	 * it's the famous DFS with modification of the
 	 * visited part of it.
 	 * */
 	private void DFS(int i,int intial,
-			ArrayList<ArrayList<Integer>> graph,
-			ArrayList<Integer > pathnow) {
+			 ArrayList<ArrayList<Integer>> graph,
+			 ArrayList<Integer > pathnow) {
 		
 		visited.set(i, true);
 		pathnow.add(i);
@@ -107,12 +102,12 @@ public class ProcessGraph {
 		}
 		return true;
 	}
-
+	
 	/*
 	 * Generation of prime paths by checking every entry
 	 * in length (from  len1) if it's subset of another path
 	 * from the next len list.
-	 * 
+	 *
 	 * max len paths are all taken since it can't be subset
 	 * of another path.
 	 * */
@@ -134,7 +129,7 @@ public class ProcessGraph {
 	 * Helper Function Used in generatePrimePaths
 	 * */
 	private boolean intersect(ArrayList<Integer> path,
-			ArrayList<ArrayList<Integer>> List) {
+				  ArrayList<ArrayList<Integer>> List) {
 		
 		for(int i=0;i<List.size();i++)
 		{
@@ -149,9 +144,9 @@ public class ProcessGraph {
 						if(List.get(i).get(k)!=path.get(counter))break;
 					}
 					if((k==List.get(i).size() && counter == path.size()) ||
-							counter == path.size()){
+					   counter == path.size()){
 						return true;
-						}
+					}
 				}
 				counter=0;
 			}
@@ -167,6 +162,102 @@ public class ProcessGraph {
 	
 	public ArrayList<ArrayList<ArrayList<Integer> > > getSimplepaths() {
 		return simplepaths;
+	}
+	
+	public void generateTestPaths() {
+		testpaths = new ArrayList<ArrayList<Integer>>();
+		ArrayList<ArrayList<Integer>> completePaths= new ArrayList<ArrayList<Integer>>();
+		ArrayList<ArrayList<Integer>> loopPaths= new ArrayList<ArrayList<Integer>>();
+		ArrayList<ArrayList<Integer>> nonCompleterPaths= new ArrayList<ArrayList<Integer>>();
+		
+		fillPaths(completePaths, loopPaths, nonCompleterPaths);
+		
+		System.out.println("complete paths");
+		System.out.println(completePaths);
+		testpaths.addAll(completePaths);
+		
+		for(int i=0;i<nonCompleterPaths.size();i++) {
+			if(nonCompleterPaths.get(i).get(0)==0) {
+				
+				for(int j=0;j<nonCompleterPaths.size();j++) {
+					
+					if(nonCompleterPaths.get(j).get(nonCompleterPaths.get(j).size()-1) == graph.size()-1) {
+						int first = nonCompleterPaths.get(j).get(0);
+						
+						boolean matched = false;
+						ArrayList<Integer> temp = new ArrayList<Integer>();
+						for(int k=0;k<nonCompleterPaths.size();k++) {
+							if(nonCompleterPaths.get(i).get(k)==first) {
+								matched = true;
+								break;
+							}
+							temp.add(nonCompleterPaths.get(i).get(k));
+						}
+						
+						if(matched) {
+							System.out.println(temp);
+							testpaths.add(temp);
+							if(i>j) {
+								nonCompleterPaths.remove(i);
+								nonCompleterPaths.remove(j);
+								i--; j--;
+								break;
+							} else {
+								nonCompleterPaths.remove(j);
+								nonCompleterPaths.remove(i);
+								i--;
+								break;
+							}
+						}
+					}
+				}
+			}
+		}
+		
+		for(int i=0;i<loopPaths.size();i++) {
+			
+			for(int j=0;j<testpaths.size();j++) {
+				
+				boolean looped= false;
+				ArrayList<Integer> temp = new ArrayList<Integer>();
+				for(int k=0;k<testpaths.get(j).size();k++) {
+					if(testpaths.get(j).get(k)== loopPaths.get(i).get(0)) {
+						looped = true;
+						for(int h=0;h<loopPaths.get(i).size();h++)
+							temp.add(loopPaths.get(i).get(h));
+						continue;
+					}
+					temp.add(testpaths.get(j).get(k));
+				}
+				if(looped) {
+					testpaths.add(temp);
+					break;
+				} else temp.clear();
+			}
+		}
+	}
+	
+	
+	
+	private void fillPaths(ArrayList<ArrayList<Integer>> completePaths,
+			       ArrayList<ArrayList<Integer>> loopPaths,
+			       ArrayList<ArrayList<Integer>> nonCompleterPaths) {
+		for(int i=0;i<primepaths.size();i++) {
+			if(primepaths.get(i).get(0) == 0
+			   && primepaths.get(i).get(primepaths.get(i).size()-1) == graph.size()-1) {
+				completePaths.add(primepaths.get(i));
+				continue;
+			} else if(primepaths.get(i).get(0) == primepaths.get(i).get(primepaths.get(i).size()-1)) {
+				loopPaths.add(primepaths.get(i));
+				continue;
+			} else {
+				nonCompleterPaths.add(primepaths.get(i));
+			}
+		}
+	}
+	
+	public ArrayList<ArrayList<Integer>> getTestPaths() {
+		return testpaths;
 	}
 	
 }
