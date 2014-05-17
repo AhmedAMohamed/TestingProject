@@ -1,0 +1,51 @@
+to start writing use @name theGraphName
+Ex:
+  @name test
+
+Second line should be the total number of nodes by using #number = number
+Ex:
+  #number = 5
+              Note that you should not use more or less spaces than the shown in the example
+
+Then a single line that shows al the lables of the nodes by using ls nodes
+Ex:
+  ls 0 , 1 , 2 , 3 , 4 , 5 , ......
+              Note that the nodes is generated in assending order of numbers
+              
+Then identifing the initial node by using # number starts
+Ex:
+  # 0 starts
+  
+Then identifing the last node by using # number ends
+Ex:
+  # 4 ends
+
+Then a single line that shows the starting point of inserting the edges by using @begin 
+Ex: 
+  @begin
+
+Then finite number of edges that user inserts in this following syntax from >> to
+Ex:
+  0 >> 1
+  1 >> 2
+           Note that you should not use more or less spaces than the shown in the example
+
+Finally after inserting all the edges the identification that the process of inserting all the edges by using @end
+Ex:
+  @end
+  
+Last closing the file by using @end theGraphName
+Ex:
+  @end theGraphName
+
+********************* Note that in the case of using the makefile the yak file must be under the name of input.yak ***********************
+
+Notes about the yak syntax:
+                            The comments is allowed by using // before the comment line
+                            The syntax is not a case sensetive no mater if capital or small
+                            The spacing is a must no more or less spacing can be allowed within the command line
+
+
+
+
+
