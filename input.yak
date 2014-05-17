@@ -1,0 +1,16 @@
+// this is a small test sample of using the YAK tool
+@name testing
+#number = 5
+ls a,r,e
+# 0 starts
+# 4 ends
+@begin
+0 >> 1
+1 >> 2
+1 >> 3
+2 >> 3
+3 >> 2
+2 >> 4
+3 >> 4
+@end
+@end testing
