@@ -1,5 +1,7 @@
 import java.util.ArrayList;
 
+import com.itextpdf.text.Chunk;
+
 
 public class ProcessGraph {
 	
@@ -261,6 +263,41 @@ public class ProcessGraph {
 				} else temp.clear();
 			}
 		}
+	}
+	public String getSimplePathString(){
+		String simple = "";
+		for(int i = 0 ; i < simplepaths.size() ; i++){
+			for(int j = 0 ; j < simplepaths.get(i).size() ; j++){
+				simple +=simplepaths.get(i).get(j) + " ";
+			}
+			simple += "\n";
+		}
+		simple += "\n\n\n\n";
+		return simple;
+	}
+
+	public String getTestPathString() {
+		String test = "";
+		for(int i = 0 ; i < testPaths.size() ; i++){
+			for(int j = 0 ; j < testPaths.get(i).size() ; j++){
+				test +=testPaths.get(i).get(j) + " ";
+			}
+			test += "\n";
+		}
+		test += "\n\n\n\n\n\n\n\n\n\n\n";
+		return test;
+	}
+
+	public String getPrimePathString() {
+		String prime = "";
+		for(int i = 0 ; i < primepaths.size() ; i++){
+			for(int j = 0 ; j < primepaths.get(i).size() ; j++){
+				prime +=primepaths.get(i).get(j) + " ";
+			}
+			prime += "\n";
+		}
+		prime += "\n\n\n\n";
+		return prime;
 	}
 }
 	
